@@ -1,0 +1,36 @@
+package herman;
+
+/** represents a sales item
+ * 
+ * @author KatherineHerman-Williams
+ * @version 1.0
+ */
+
+/**
+ * 
+ * @author KatherineHerman-Williams
+ *
+ */
+public class SalesItem {
+	public String name;
+	public Double cost;
+	public int quant;
+	
+	/**
+	 * creates a sales item with the specified name
+	 * 
+	 * @param name name of item sold
+	 * @param cost cost of item sold
+	 * @param quant quantity of item sold
+	 */
+
+	public SalesItem(String name, String cost, String quant) {
+		this.name = name;
+		this.cost = Double.parseDouble(cost);
+		this.quant = Integer.parseInt(quant);
+				
+	}
+
+
+}
+

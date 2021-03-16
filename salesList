@@ -1,0 +1,163 @@
+package herman;
+
+import java.awt.EventQueue;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+
+
+public class SalesList {
+
+	private JFrame frame;
+	private final JLabel lblNewLabel = new JLabel("Sales List");
+	private JTextField textFieldName;
+	private JTextField textFieldCost;
+	private JTextField textFieldQuant;
+	private JTextField textFieldOutput;
+	private JTextArea textFieldSalesList;
+	private JButton btnAdd;
+	private static final DecimalFormat form = new DecimalFormat("#.00");
+	
+	/**
+	 * @author KatherineHerman-Williams
+	 * @verion 1.0
+	 */
+	
+
+	/**
+	 * Launch the application.
+	 * @param args command line arguments
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					SalesList window = new SalesList();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public SalesList() {
+		initialize();
+		createEvents();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.setBounds(100, 100, 450, 300);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setBounds(170, 6, 98, 29);
+		frame.getContentPane().add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Item:");
+		lblNewLabel_1.setBounds(55, 52, 61, 16);
+		frame.getContentPane().add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Cost:");
+		lblNewLabel_2.setBounds(55, 76, 61, 16);
+		frame.getContentPane().add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("Quantity");
+		lblNewLabel_3.setBounds(55, 101, 61, 16);
+		frame.getContentPane().add(lblNewLabel_3);
+		
+		textFieldName = new JTextField();
+		textFieldName.setBounds(158, 47, 210, 26);
+		frame.getContentPane().add(textFieldName);
+		textFieldName.setColumns(10);
+		
+		textFieldCost = new JTextField();
+		textFieldCost.setBounds(158, 71, 130, 26);
+		frame.getContentPane().add(textFieldCost);
+		textFieldCost.setColumns(10);
+		
+		textFieldQuant = new JTextField();
+		textFieldQuant.setBounds(158, 96, 130, 26);
+		frame.getContentPane().add(textFieldQuant);
+		textFieldQuant.setColumns(10);
+		
+		btnAdd = new JButton("Add Item to Sales List");
+		btnAdd.setBounds(106, 119, 249, 29);
+		frame.getContentPane().add(btnAdd);
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(55, 150, 364, 86);
+		frame.getContentPane().add(scrollPane);
+		
+		textFieldSalesList = new JTextArea();
+		scrollPane.setViewportView(textFieldSalesList);
+		
+		JLabel lblNewLabel_4 = new JLabel("$");
+		lblNewLabel_4.setHorizontalAlignment(SwingConstants.TRAILING);
+		lblNewLabel_4.setBounds(96, 76, 61, 16);
+		frame.getContentPane().add(lblNewLabel_4);
+		
+		textFieldOutput = new JTextField();
+		textFieldOutput.setBounds(158, 243, 130, 26);
+		frame.getContentPane().add(textFieldOutput);
+		textFieldOutput.setColumns(10);
+		
+		JLabel lblNewLabel_5 = new JLabel("Total Sales:     $");
+		lblNewLabel_5.setBounds(55, 248, 102, 16);
+		frame.getContentPane().add(lblNewLabel_5);
+	}
+	
+	/**
+	 * function of add button- adds entered sales item to sales list
+	 */
+	private void createEvents() {
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				buildOutput();
+			}
+			/**
+			 * @return adds sales item to sales list, shows sales list in JTextArea
+			 * @return shows total cost of sales list 
+			 */
+
+			private void buildOutput() {
+				// TODO Auto-generated method stub
+				SalesItem item = new SalesItem(textFieldName.getText(), textFieldCost.getText(), textFieldQuant.getText());
+				double totalCost = 0;
+				textFieldSalesList.append(item.name + "  $" + item.cost + "  " + item.quant + "\n");//displays sales item
+				totalCost += (item.cost * item.quant);//adds total cost from sales list
+					
+				textFieldOutput.setText("$" + form.format(totalCost));
+					
+				textFieldName.setText("");//makes text fields empty again
+				textFieldCost.setText("");
+				textFieldQuant.setText("");
+							
+			}
+		});
+	}
+}
+
+
+
+
+
+
+
+
+
